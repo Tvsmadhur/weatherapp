@@ -16,42 +16,36 @@ hbs.registerPartials(partialsPath)
 app.use(express.static(pubilcdir))
 
 
-app.get('/', (req, res) =>
-{
+app.get('/', (req, res) => {
   res.render('index', {
     title: 'Weather-App',
     name: 'madhur'
   })
 })
-app.get('/about', (req, res) =>
-{
+app.get('/about', (req, res) => {
   res.render('about', {
     title: 'About me',
     name: 'madhur'
   })
 })
-app.get('/help', (req, res) =>
-{
+app.get('/help', (req, res) => {
   res.render('help', {
     title: 'Help',
     name: 'madhur'
   })
 })
-app.get('/weather', (req, res) =>
-{
+app.get('/weather', (req, res) => {
   if (!req.query.address) {
     return res.send({
       error: 'You must provide an address'
     })
   }
-  geocode(req.query.address, (error, { lat, long, location } = {}) =>
-  {
+  geocode(req.query.address, (error, { lat, long, location } = {}) => {
     if (error) {
       return res.send({ error })
     }
 
-    forecast(lat, long, (error, forecastdata) =>
-    {
+    forecast(lat, long, (error, forecastdata) => {
       if (error) {
         return res.send({ error })
       }
@@ -71,8 +65,8 @@ app.get('/weather', (req, res) =>
 
 
 })
-app.get('/products', (req, res) =>
-{
+// comment lines
+app.get('/products', (req, res) => {
   if (!req.query.search) {
     return res.send({
       error: 'You must provide a search term'
@@ -86,12 +80,10 @@ app.get('/products', (req, res) =>
 
 
 })
-app.get('help/*', (req, res) =>
-{
+app.get('help/*', (req, res) => {
   res.send('Help article not found')
 })
-app.get('*', (req, res) =>
-{
+app.get('*', (req, res) => {
   res.render('404', {
     title: '404',
     name: 'Madhur',
